@@ -8,9 +8,10 @@ class Commandline
 {
 private:
 
-	bool command_ok;				// Tells whether the line of command is valid
-	int cpu_time;					// Allocated CPU time (optional)
-	int seed;						// Random seed
+	bool command_ok;				// Boolean the check if the line of command is valid
+	int cpu_time;					// Allocated CPU time (defaults to 5min)
+	int seed;						// Random seed (defaults to 0, in this case the current time value will be used as seed)
+	int maxDepth;					// Maximum depth for the classification tree (defaults to 4)
 	std::string instance_name;		// Instance path
 	std::string output_name;		// Output path
 
@@ -42,9 +43,9 @@ public:
 	Commandline(int argc, char* argv[])
 	{
 		command_ok = true;
-		if (argc % 2 != 0 || argc > 12 || argc < 2)
+		if (argc % 2 != 0 || argc > 10 || argc < 2)
 		{
-			std::cout << "ISSUE WITH THE NUMBER OF COMMANDLINE PARAMETERS: " << argc << std::endl;
+			std::cout << "ISSUE WITH THE NUMBER OF COMMANDLINE ARGUMENTS: " << argc << std::endl;
 			command_ok = false;
 		}
 		else
@@ -52,17 +53,21 @@ public:
 			// Setting some default values
 			set_instance_name(std::string(argv[1]));
 			set_default_output_name(std::string(argv[1]));
-			cpu_time = 300; // Five minutes of CPU time allowed
+			cpu_time = 300;
 			seed = 0;
+			maxDepth = 4;
 
 			for (int i = 2; i < argc; i += 2)
 			{
 				if (std::string(argv[i]) == "-t")
-					cpu_time = atoi(argv[i + 1]);
+					cpu_time = atoi(argv[i+1]);
 				else if (std::string(argv[i]) == "-sol")
-					set_output_name(std::string(argv[i + 1]));
+					set_output_name(std::string(argv[i+1]));
 				else if (std::string(argv[i]) == "-seed")
-					seed = atoi(argv[i + 1]);
+					seed = atoi(argv[i+1]);
+				else if (std::string(argv[i]) == "-depth")
+					maxDepth = atoi(argv[i+1]);
+				
 				else
 				{
 					std::cout << "----- NON RECOGNIZED ARGUMENT: " << std::string(argv[i]) << std::endl;
@@ -83,6 +88,9 @@ public:
 
 	// Getting the random seed
 	int get_seed() { return seed; }
+
+	// Getting the depth
+	int get_maxDepth() { return maxDepth; }
 
 	// Tests whether the commandline parameters are OK
 	bool is_valid() { return command_ok; }
