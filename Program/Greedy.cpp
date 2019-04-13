@@ -13,9 +13,10 @@ void Greedy::recursiveConstruction(int node, int level)
 		return;
 
 	/* LOOK FOR A BEST SPLIT */
-	double nbSamplesNode = solution->tree[node].nbSamplesNode;
+	bool allIdentical = true; // To detect contradictory data
+	int nbSamplesNode = solution->tree[node].nbSamplesNode;
 	double originalEntropy = solution->tree[node].entropy;
-	double bestInformationGain = 0.0;
+	double bestInformationGain = -1.e30;
 	int bestSplitAttribute = -1;
 	double bestSplitThrehold = -1.e30;
 	for (int att = 0; att < params->nbAttributes; att++)
@@ -33,6 +34,7 @@ void Greedy::recursiveConstruction(int node, int level)
 				attributeLevels.insert(params->dataAttributes[s][att]);
 			}
 			if (attributeLevels.size() <= 1) continue;					// If all sample have the same level for this attribute, it's useless to look for a split
+			else allIdentical = false;
 			std::sort(orderedSamples.begin(), orderedSamples.end());
 			
 			// Initially all samples are on the right
@@ -86,6 +88,10 @@ void Greedy::recursiveConstruction(int node, int level)
 			/* TODO */
 		}
 	}
+
+	/* SPECIAL CASE TO HANDLE POSSIBLE CONTADICTIONS IN THE DATA */
+	// (Situations where the same samples have different classes -- In this case no improving split can be found)
+	if (allIdentical) return;
 
 	/* APPLY THE SPLIT AND RECURSIVE CALL */
 	solution->tree[node].splitAttribute = bestSplitAttribute;

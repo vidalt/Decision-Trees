@@ -35,6 +35,9 @@ Params::Params(std::string pathToInstance, std::string pathToSolution, int seedR
 		if (!(useless == "EOF"))
 			throw std::string("ERROR when reading instance, EOF has not been found where expected");
 		std::cout << "----- DATASET [" << datasetName << "] LOADED IN " << clock()/ (double)CLOCKS_PER_SEC << "(s)" << std::endl;
+		std::cout << "----- NUMBER OF SAMPLES: " << nbSamples << std::endl;
+		std::cout << "----- NUMBER OF ATTRIBUTES: " << nbAttributes << std::endl;
+		std::cout << "----- NUMBER OF CLASSES: " << nbClasses << std::endl;
 	}
 	else
 		std::cout << "----- IMPOSSIBLE TO OPEN DATASET: " << pathToInstance << std::endl;
