@@ -34,6 +34,7 @@ public:
 	std::vector <AttributeType> attributeTypes;				// Type of the attributes (TYPE_NUMERICAL or TYPE_CATEGORICAL)
 	std::vector < std::vector < double > > dataAttributes;  // Dataset: attributes of each sample
 	std::vector < int > dataClasses;						// Dataset: class of each sample
+	std::vector < int > nbLevels;							// Dataset: number of possible levels/categories (only for categorical attributes)
 
 	/* TO MEASURE CPU TIME */
 	clock_t startTime;				// Time when the algorithm started

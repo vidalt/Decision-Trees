@@ -23,7 +23,7 @@ void Greedy::recursiveConstruction(int node, int level)
 	{
 		if (params->attributeTypes[att] == TYPE_NUMERICAL)
 		{
-			/* FIND SPLIT WITH BEST INFORMATION GAIN FOR NUMERICAL ATTRIBUTE c */
+			/* CASE 1) -- FIND SPLIT WITH BEST INFORMATION GAIN FOR NUMERICAL ATTRIBUTE c */
 			 
 			// Define some data structures
 			std::vector <std::pair<double, int>> orderedSamples;		// Order of the samples according to attribute c
@@ -84,8 +84,52 @@ void Greedy::recursiveConstruction(int node, int level)
 		}
 		else 
 		{
-			/* FIND BEST SPLIT FOR CATEGORICAL ATTRIBUTE c */
-			/* TODO */
+			/* CASE 2) -- FIND BEST SPLIT FOR CATEGORICAL ATTRIBUTE c */
+
+			// Count for each level of attribute c and each class the number of samples
+			std::vector <int> nbSamplesLevel = std::vector <int>(params->nbLevels[att],0);
+			std::vector <int> nbSamplesClass = std::vector <int>(params->nbClasses, 0);
+			std::vector < std::vector <int> > nbSamplesLevelClass = std::vector< std::vector <int> >(params->nbLevels[att], std::vector <int>(params->nbClasses,0));
+			for (int s : solution->tree[node].samples)
+			{
+				nbSamplesLevel[params->dataAttributes[s][att]]++;
+				nbSamplesClass[params->dataClasses[s]]++;
+				nbSamplesLevelClass[params->dataAttributes[s][att]][params->dataClasses[s]]++;
+			}
+
+			// Calculate information gain for a split at each possible level of attribute c
+			for (int level = 0; level < params->nbLevels[att]; level++)
+			{
+				if (nbSamplesLevel[level] > 0 && nbSamplesLevel[level] < nbSamplesNode)
+				{
+					// Evaluate entropy of the two resulting sample sets
+					allIdentical = false;
+					double entropyLevel = 0.0;
+					double entropyOthers = 0.0;
+					for (int c = 0; c < params->nbClasses; c++)
+					{
+						if (nbSamplesLevelClass[level][c] > 0)
+						{
+							double fracLevel = (double)nbSamplesLevelClass[level][c] / (double)nbSamplesLevel[level] ;
+							entropyLevel -= fracLevel * log2(fracLevel);
+						}
+						if (nbSamplesClass[c] - nbSamplesLevelClass[level][c] > 0)
+						{
+							double fracOthers = (double)(nbSamplesClass[c] - nbSamplesLevelClass[level][c]) / (double)(nbSamplesNode - nbSamplesLevel[level]);
+							entropyOthers -= fracOthers * log2(fracOthers);
+						}
+					}
+
+					// Evaluate the information gain and store if this is the best option found until now
+					double informationGain = originalEntropy - ((double)nbSamplesLevel[level] *entropyLevel + (double)(nbSamplesNode - nbSamplesLevel[level])*entropyOthers) / (double)nbSamplesNode;
+					if (informationGain > bestInformationGain)
+					{
+						bestInformationGain = informationGain;
+						bestSplitAttribute = att;
+						bestSplitThrehold = level;
+					}
+				}
+			}
 		}
 	}
 

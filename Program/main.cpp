@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
 		params.endTime = clock();
 		std::cout << "----- DECISION TREE OPTIMIZATION COMPLETED IN " << (params.endTime - params.startTime) / (double)CLOCKS_PER_SEC << "(s)" << std::endl;
 		
-		// Printing the solution and exporting statistics (should also export results into a file)
+		// Printing the solution and exporting statistics (also export results into a file)
 		solution.printAndExport(c.get_path_to_solution());
 		std::cout << "----- END OF ALGORITHM" << std::endl;
 	}

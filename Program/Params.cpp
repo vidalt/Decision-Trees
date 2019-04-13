@@ -25,10 +25,15 @@ Params::Params(std::string pathToInstance, std::string pathToSolution, int seedR
 		inputFile >> useless >> nbClasses;
 		dataAttributes = std::vector<std::vector<double> >(nbSamples, std::vector<double>(nbAttributes));
 		dataClasses    = std::vector<int>(nbSamples);
+		nbLevels = std::vector<int>(nbAttributes,0);
 		for (unsigned int s = 0; s < nbSamples; s++)
 		{
 			for (unsigned int i = 0; i < nbAttributes; i++)
+			{
 				inputFile >> dataAttributes[s][i];
+				if (attributeTypes[i] == TYPE_CATEGORICAL && dataAttributes[s][i]+1 > nbLevels[i])
+					nbLevels[i] = dataAttributes[s][i]+1;
+			}
 			inputFile >> dataClasses[s];
 		}
 		inputFile >> useless;
