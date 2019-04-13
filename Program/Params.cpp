@@ -30,7 +30,6 @@ Params::Params(std::string pathToInstance, std::string pathToSolution, int seedR
 			for (unsigned int i = 0; i < nbAttributes; i++)
 				inputFile >> dataAttributes[s][i];
 			inputFile >> dataClasses[s];
-			dataClasses[s]--; //By convention the first class with take value 0 (TODO -- could modify instances to be OK)
 		}
 		inputFile >> useless;
 		if (!(useless == "EOF"))

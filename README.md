@@ -10,5 +10,5 @@ Available options:
   -depth         Max depth allowed for the decision tree.
 ```
 
-Example: `./my_executable Datasets/p04.txt -depth 5 -t 600`
+Example: `./my_executable Datasets/p04.txt -depth 3 -t 600`
 
