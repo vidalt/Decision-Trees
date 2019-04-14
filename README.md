@@ -5,7 +5,7 @@ This is a simplistic greedy decision tree implementation (similar to CART, but u
 The purpose of this code is to serve as a starting point for the first project of INF2980.
 It handles continuous or categorical attributes, as well as possible contradictory data (samples with identical attribute values having different classes).
 All splits are binary and based on the information gain metric:
-* for continuous attributes, the algorithm chooses the best (orthogonal) split among all attributes and possible threhold values
+* for continuous attributes, the algorithm chooses the best (orthogonal) split among all attributes and possible threshold values
 * for categorical attributes, the algorithm chooses the best "one-versus-all" split
 
 # Running
