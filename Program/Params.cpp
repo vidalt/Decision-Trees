@@ -35,6 +35,8 @@ Params::Params(std::string pathToInstance, std::string pathToSolution, int seedR
 					nbLevels[i] = dataAttributes[s][i]+1;
 			}
 			inputFile >> dataClasses[s];
+			if (dataClasses[s] >= nbClasses) 
+				throw std::string("ERROR: class indices should be in 0...nbClasses-1");
 		}
 		inputFile >> useless;
 		if (!(useless == "EOF"))
