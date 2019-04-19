@@ -22,10 +22,8 @@ Available options:
 Example: `./my_executable Datasets/p04.txt -depth 3 -t 600`
 
 
-### Makefile
-
- For your convenience, a Makefile is provided in Program folder.
- ```sh
-cd Program
-make
+ For your convenience, a script file for executing all experiments was created.
+ 
+ ``` 
+ sh execute.sh
 ```
