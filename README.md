@@ -21,3 +21,9 @@ Available options:
 
 Example: `./my_executable Datasets/p04.txt -depth 3 -t 600`
 
+
+ For your convenience, a script file for executing all experiments was created.
+ 
+ ``` 
+ sh execute.sh
+```
