@@ -7,6 +7,7 @@ make clean
 make
 cd ..
 
+mkdir Solutions
 
 INSTANCES=('p01.txt' 'p02.txt' 'p03.txt' 'p04.txt' 'p05.txt' 'p06.txt' 'p07.txt' 'p08.txt' 'p09.txt' 'p10.txt')
 for instance in "${INSTANCES[@]}" 
