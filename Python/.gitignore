@@ -1,0 +1,6 @@
+# Ignore computed results
+solution/
+
+# Ignore projects
+.vscode/
+src/__pycache__/
