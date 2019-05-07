@@ -15,10 +15,12 @@ if __name__ == "__main__":
 
     # Run the greedy algorithm
     print("----- STARTING DECISION TREE OPTIMIZATION")
-    start = time.time()
+    instance.start_time = time.time()
     solver = Greedy(instance, solution)
     solver.run()
-    delta = time.time() - start
+    instance.end_time = time.time()
+
+    delta = instance.end_time - instance.start_time
     print("----- DECISION TREE OPTIMIZATION COMPLETED IN " + str(delta) + " (s)")
     
     # Printing the solution and exporting statistics (also export results into a file)

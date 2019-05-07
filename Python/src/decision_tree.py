@@ -21,9 +21,13 @@ class Node:
         self.samples = []                                            # Samples from the training set at this node
         self.num_samples_per_class = np.zeros(instance.num_classes)  # Number of samples of each class at this node
         self.num_samples = 0                                         # Total number of samples in this node
-        self.majority_class = -1                                     # Majority class in this node
+        self.majority_class_id = -1                                  # Majority class in this node
         self.num_majority_class = 0                                  # Number of elements in the majority class
         self.entropy = float("-inf")                                 # Entropy in this node
+
+        # TO MEASURE CPU TIME
+        self.start_time = 0                                          # Time when the algorithm started
+        self.end_time = 0                                            # Time when the algorithm ended 
 
     def evaluate(self):
         frac = self.num_samples_per_class / self.num_samples
@@ -85,7 +89,8 @@ class Solution:
         
         # Dump result
         with open(filename, mode='w') as fp:
-            fp.write("TIME(s): " + str(0) + "\n")
+            delta = self.instance.end_time - self.instance.start_time
+            fp.write("TIME(s): " + str(delta) + "\n")
             fp.write("NB_SAMPLES: " + str(self.instance.num_samples) + "\n")
             fp.write("NB_MISCLASSIFIED: " + str(num_misclassified_samples) + "\n")
 
