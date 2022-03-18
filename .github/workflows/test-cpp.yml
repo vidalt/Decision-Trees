@@ -13,9 +13,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: make
-      run: cd Program 
-           make
+    - name: make 
+      run: | 
+        cd Program
+        make
     - name: test
-      run: ./dec-tree ../Datasets/p01.txt
-           ./dec-tree ../Datasets/p02.txt
+      run: |
+        ./dec-tree ../Datasets/p01.txt
+        ./dec-tree ../Datasets/p02.txt
