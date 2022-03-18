@@ -1,4 +1,4 @@
-name: C/C++ CI
+name: CI
 
 on:
   push:
@@ -8,16 +8,17 @@ on:
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
-
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ "ubuntu-latest", "windows-latest", "macos-latest" ]
     steps:
     - uses: actions/checkout@v2
-    - name: make 
+    - name: make on ${{ matrix.os }}
       run: | 
         cd Program
         make
-    - name: test
+    - name: test on ${{ matrix.os }}
       run: |
         cd Program
         ./dec-tree ../Datasets/p01.txt
