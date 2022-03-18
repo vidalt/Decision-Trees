@@ -1,0 +1,21 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: make
+      run: cd Program 
+           make
+    - name: test
+      run: ./dec-tree ../Datasets/p01.txt
+           ./dec-tree ../Datasets/p02.txt
