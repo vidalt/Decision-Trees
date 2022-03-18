@@ -1,4 +1,6 @@
 
+[![C/C++ CI](https://github.com/vidalt/Decision-Trees/actions/workflows/test-cpp.yml/badge.svg)](https://github.com/vidalt/Decision-Trees/actions/workflows/test-cpp.yml)
+
 # Purpose
 
 This is a simplistic greedy decision tree implementation (similar to CART, but using pre-pruning via a fixed height limit rather than post-pruning).
