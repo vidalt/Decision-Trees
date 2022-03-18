@@ -19,5 +19,6 @@ jobs:
         make
     - name: test
       run: |
+        cd Program
         ./dec-tree ../Datasets/p01.txt
         ./dec-tree ../Datasets/p02.txt
